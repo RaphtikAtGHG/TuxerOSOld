@@ -2,9 +2,9 @@
 #include "idt.h"
 #include "gdt.h"
 #include "io.h"
-#include <stdio.h>
+#include "../../stdio.h"
 #include <stddef.h>
-#include <debug.h>
+#include "../../debug.h"
 
 #define MODULE          "ISR"
 
@@ -79,7 +79,7 @@ void __attribute__((cdecl)) i686_ISR_Handler(Registers* regs)
         log_crit(MODULE, "KERNEL PANIC!");
         printf("KERNEL PANIC!");
 
-        i686_Panic();
+        //i686_Panic();
     }
 }
 

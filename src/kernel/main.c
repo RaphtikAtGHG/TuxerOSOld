@@ -1,17 +1,23 @@
 #include <stdint.h>
-#include "stdio.h"
 #include "memory.h"
-#include <hal/hal.h>
-#include <arch/i686/irq.h>
-#include <debug.h>
-#include <boot/bootparams.h>
+#include "hal/hal.h"
+#include "arch/i686/irq.h"
+#include "debug.h"
+#include "memory.h"
+#include "boot/bootparams.h"
+#include "stdio.h"
+
+uint8_t* ShellLoadAddress = (uint8_t*)((void*)0x50000);
+uint8_t* Shell = (uint8_t*)0x00200000;
 
 extern void _init();
 
 void crash_me();
 
+
 void timer(Registers* regs)
 {
+
     printf(".");
 }
 
@@ -21,6 +27,8 @@ void start(BootParams* bootParams)
     _init();
 
     HAL_Initialize();
+
+
 
     log_debug("Main", "Boot device: %x", bootParams->BootDevice);
     log_debug("Main", "Memory region count: %d", bootParams->Memory.RegionCount);
@@ -37,10 +45,11 @@ void start(BootParams* bootParams)
     log_warn("Main", "This is a warning msg!");
     log_err("Main", "This is an error msg!");
     log_crit("Main", "This is a critical msg!");
-    printf("Nanobyte OS v0.1\n");
+    printf("TuxerOS Ver. A 0.1.2\n");
     printf("This operating system is under construction.\n");
     //i686_IRQ_RegisterHandler(0, timer);
     printf("Sup\n");
+    //test();
 
     //crash_me();
 

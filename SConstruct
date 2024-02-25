@@ -117,14 +117,14 @@ TARGET_ENVIRONMENT.Append(
     ],
     CCFLAGS = [
         '-ffreestanding',
-        '-nostdlib'
+        '-nostdlib',
     ],
     CXXFLAGS = [
         '-fno-exceptions',
         '-fno-rtti',
     ],
     LINKFLAGS = [
-        '-nostdlib'
+        '-nostdlib',
     ],
     LIBS = ['gcc'],
     LIBPATH = [ str(toolchainGccLibs) ],
@@ -139,15 +139,20 @@ Export('TARGET_ENVIRONMENT')
 variantDir = 'build/{0}_{1}'.format(TARGET_ENVIRONMENT['arch'], TARGET_ENVIRONMENT['config'])
 variantDirStage1 = variantDir + '/stage1_{0}'.format(TARGET_ENVIRONMENT['imageFS'])
 
+
 SConscript('src/libs/core/SConscript', variant_dir=variantDir + '/libs/core', duplicate=0)
+SConscript('src/stdlib/SConscript', variant_dir=variantDir + '/include', duplicate=0)
 
 SConscript('src/bootloader/stage1/SConscript', variant_dir=variantDirStage1, duplicate=0)
 SConscript('src/bootloader/stage2/SConscript', variant_dir=variantDir + '/stage2', duplicate=0)
 SConscript('src/kernel/SConscript', variant_dir=variantDir + '/kernel', duplicate=0)
 SConscript('image/SConscript', variant_dir=variantDir, duplicate=0)
+SConscript('src/shell/SConscript', variant_dir=variantDir + '/shell', duplicate=0)
 
 Import('image')
 Default(image)
+Import('kernel')
+Import('libstd')
 
 # Phony targets
 PhonyTargets(HOST_ENVIRONMENT, 
