@@ -1,11 +1,10 @@
 #include <stdint.h>
-#include "memory.h"
-#include "hal/hal.h"
-#include "arch/i686/irq.h"
-#include "debug.h"
-#include "memory.h"
-#include "boot/bootparams.h"
-#include "stdio.h"
+#include <memory.h>
+#include <hal/hal.h>
+#include <arch/i686/irq.h>
+#include <debug.h>
+#include <boot/bootparams.h>
+#include <stdio.h>
 
 uint8_t* ShellLoadAddress = (uint8_t*)((void*)0x50000);
 uint8_t* Shell = (uint8_t*)0x00200000;
@@ -41,10 +40,7 @@ void start(BootParams* bootParams)
     }
 
 
-    log_info("Main", "This is an info msg!");
-    log_warn("Main", "This is a warning msg!");
-    log_err("Main", "This is an error msg!");
-    log_crit("Main", "This is a critical msg!");
+
     printf("TuxerOS Ver. A 0.1.2\n");
     printf("This operating system is under construction.\n");
     //i686_IRQ_RegisterHandler(0, timer);

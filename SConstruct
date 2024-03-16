@@ -68,18 +68,18 @@ else:
 if HOST_ENVIRONMENT['imageType'] == 'floppy':
     HOST_ENVIRONMENT['imageFS'] = 'fat12'
 
-HOST_ENVIRONMENT.Replace(ASCOMSTR        = "Assembling [$SOURCE]",
-                         CCCOMSTR        = "Compiling  [$SOURCE]",
-                         CXXCOMSTR       = "Compiling  [$SOURCE]",
-                         FORTRANPPCOMSTR = "Compiling  [$SOURCE]",
-                         FORTRANCOMSTR   = "Compiling  [$SOURCE]",
-                         SHCCCOMSTR      = "Compiling  [$SOURCE]",
-                         SHCXXCOMSTR     = "Compiling  [$SOURCE]",
-                         LINKCOMSTR      = "Linking    [$TARGET]",
-                         SHLINKCOMSTR    = "Linking    [$TARGET]",
-                         INSTALLSTR      = "Installing [$TARGET]",
-                         ARCOMSTR        = "Archiving  [$TARGET]",
-                         RANLIBCOMSTR    = "Ranlib     [$TARGET]")
+# HOST_ENVIRONMENT.Replace(ASCOMSTR        = "Assembling [$SOURCE]",
+#                          CCCOMSTR        = "Compiling  [$SOURCE]",
+#                          CXXCOMSTR       = "Compiling  [$SOURCE]",
+#                          FORTRANPPCOMSTR = "Compiling  [$SOURCE]",
+#                          FORTRANCOMSTR   = "Compiling  [$SOURCE]",
+#                          SHCCCOMSTR      = "Compiling  [$SOURCE]",
+#                          SHCXXCOMSTR     = "Compiling  [$SOURCE]",
+#                          LINKCOMSTR      = "Linking    [$TARGET]",
+#                          SHLINKCOMSTR    = "Linking    [$TARGET]",
+#                          INSTALLSTR      = "Installing [$TARGET]",
+#                          ARCOMSTR        = "Archiving  [$TARGET]",
+#                          RANLIBCOSMSTR   = "Ranlib     [$TARGET]")
 
 
 #
@@ -127,7 +127,7 @@ TARGET_ENVIRONMENT.Append(
         '-nostdlib',
     ],
     LIBS = ['gcc'],
-    LIBPATH = [ str(toolchainGccLibs) ],
+    LIBPATH = [ str(toolchainGccLibs), "src/libs/std" ]
 )
 
 TARGET_ENVIRONMENT['ENV']['PATH'] += os.pathsep + str(toolchainBin)
@@ -141,7 +141,7 @@ variantDirStage1 = variantDir + '/stage1_{0}'.format(TARGET_ENVIRONMENT['imageFS
 
 
 SConscript('src/libs/core/SConscript', variant_dir=variantDir + '/libs/core', duplicate=0)
-SConscript('src/stdlib/SConscript', variant_dir=variantDir + '/include', duplicate=0)
+SConscript('src/libs/std/SConscript', variant_dir=variantDir + '/libs/std', duplicate=0)
 
 SConscript('src/bootloader/stage1/SConscript', variant_dir=variantDirStage1, duplicate=0)
 SConscript('src/bootloader/stage2/SConscript', variant_dir=variantDir + '/stage2', duplicate=0)

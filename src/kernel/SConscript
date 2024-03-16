@@ -15,8 +15,8 @@ env.Append(
     ],
     CPPPATH = [ 
         env.Dir('.').srcnode(),
-        env['PROJECTDIR'].Dir('src/libs'),
-        env['PROJECTDIR'].Dir('src/stdlib')
+        env['PROJECTDIR'].Dir('src/libs/'),
+        env['PROJECTDIR'].Dir('src/libs/std/')
     ],
     ASFLAGS = [ '-I', env.Dir('.').srcnode(), '-f', 'elf' ]
 )
@@ -50,7 +50,7 @@ objects = [
 kernel = env.Program('kernel.elf', objects)
 
 kernel_stripped = env.Command('kernel-stripped.elf', kernel, '$STRIP -o $TARGET $SOURCE')
-env.Default(kernel_stripped)
+env.Default(kernel)
 
 Export('kernel')
 Export('kernel_stripped')
