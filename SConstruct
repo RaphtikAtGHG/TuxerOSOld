@@ -127,7 +127,7 @@ TARGET_ENVIRONMENT.Append(
         '-nostdlib',
     ],
     LIBS = ['gcc'],
-    LIBPATH = [ str(toolchainGccLibs), "src/libs/std" ]
+    LIBPATH = [ str(toolchainGccLibs)]
 )
 
 TARGET_ENVIRONMENT['ENV']['PATH'] += os.pathsep + str(toolchainBin)
